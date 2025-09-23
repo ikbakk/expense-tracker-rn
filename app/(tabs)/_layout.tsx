@@ -6,7 +6,7 @@ import {
 	ReceiptText,
 	Settings,
 } from "lucide-react-native";
-import { Icon } from "@/components/ui/icon";
+import { Icon } from "@/components/ui";
 import { useClientOnlyValue } from "@/components/useClientOnlyValue";
 
 const tabs = [
