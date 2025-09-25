@@ -2,7 +2,7 @@ import { Card, HStack, Progress, ProgressFilledTrack, Text } from "./ui";
 
 export default function MonthlyBudget() {
 	return (
-		<Card variant="outline" size="lg" className="gap-4">
+		<Card variant="outline" size="lg" className="gap-2">
 			<HStack className="justify-between items-center">
 				<Text size="lg">Monthly budget</Text>
 				<Text>60% used</Text>
