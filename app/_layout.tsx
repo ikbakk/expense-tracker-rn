@@ -9,12 +9,9 @@ import {
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect, useState } from "react";
-import { useColorScheme } from "@/components/useColorScheme";
-import { Slot, Stack, usePathname } from "expo-router";
-import { StatusBar } from "expo-status-bar";
+import { Stack, usePathname } from "expo-router";
 import { Fab, FabIcon } from "@/components/ui/fab";
 import { MoonIcon, SunIcon } from "@/components/ui/icon";
-import { SafeAreaView } from "react-native-safe-area-context";
 
 export {
 	// Catch any errors thrown by the Layout component.
@@ -25,7 +22,7 @@ SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
 	const [loaded, error] = useFonts({
-		SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
+		Inter: require("../assets/fonts/Inter-Regular.ttf"),
 		...FontAwesome.font,
 	});
 
@@ -50,8 +47,8 @@ function RootLayoutNav() {
 	return (
 		<GluestackUIProvider mode={colorMode}>
 			<ThemeProvider value={colorMode === "dark" ? DarkTheme : DefaultTheme}>
-				<Stack>
-					<Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+				<Stack screenOptions={{ headerShown: false }}>
+					<Stack.Screen name="/home" />
 				</Stack>
 				{pathname !== "/" && (
 					<Fab

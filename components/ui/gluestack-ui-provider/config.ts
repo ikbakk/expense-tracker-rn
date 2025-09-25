@@ -3,6 +3,8 @@ import { vars } from "nativewind";
 
 export const config = {
 	light: vars({
+		"--font-inter": "Inter-Regular",
+
 		"--color-primary-0": "240 253 247",
 		"--color-primary-50": "204 251 229",
 		"--color-primary-100": "167 243 208",
@@ -155,6 +157,8 @@ export const config = {
 		"--color-indicator-error": "239 68 68",
 	}),
 	dark: vars({
+		"--font-inter": "Inter-Regular",
+
 		"--color-primary-0": "1 67 48",
 		"--color-primary-50": "2 84 61",
 		"--color-primary-100": "3 102 74",

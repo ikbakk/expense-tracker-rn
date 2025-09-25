@@ -11,3 +11,13 @@ export function cn(...inputs: ClassValue[]) {
 export function rem(value: number) {
 	return value * 16 * fontScale;
 }
+
+export function formattedCurrency(unformattedNumber: number) {
+	const value = new Intl.NumberFormat("id-ID", {
+		style: "currency",
+		currency: "IDR",
+		minimumFractionDigits: 0,
+	}).format(unformattedNumber);
+
+	return value;
+}

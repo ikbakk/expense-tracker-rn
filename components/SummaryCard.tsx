@@ -22,7 +22,7 @@ export default function SummaryCard({
 		<Card
 			size={"lg"}
 			variant={variant}
-			className={cn("justify-center gap-2", className)}
+			className={cn("justify-center gap-3", className)}
 		>
 			<Text size={"md"} className={smallTextClassName}>
 				{smallText}
