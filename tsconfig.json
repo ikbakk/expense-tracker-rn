@@ -1,0 +1,13 @@
+{
+	"compilerOptions": {
+		"strict": true,
+		"baseUrl": ".",
+		"paths": {
+			"@/*": ["./src/*"],
+			"tailwind.config": ["./tailwind.config.js"]
+		}
+	},
+	"include": ["**/*.ts", "**/*.tsx", "nativewind-env.d.ts", "src"],
+	"extends": "@react-native/typescript-config",
+	"exclude": ["**/node_modules", "**/Pods"]
+}
