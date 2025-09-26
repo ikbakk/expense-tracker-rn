@@ -1,14 +1,10 @@
-import { LinearGradient } from "expo-linear-gradient";
-import { useColorScheme } from "nativewind";
 import { FlatList } from "react-native";
 import { dummyExpenses } from "@/lib/dummyExpenses";
 import { formattedCurrency } from "@/lib/utils";
 import { Box, Button, ButtonText, Card, HStack, Text, VStack } from "./ui";
+import LinearGradients from "./ui/LinearGradients";
 
 export default function RecentExpenses() {
-	const { colorScheme } = useColorScheme();
-	const cardBg =
-		colorScheme === "light" ? "rgb(255, 255, 255)" : "rgb(21, 16, 16)";
 	return (
 		<Card variant="outline" size="lg" className="flex-1">
 			<VStack className="flex-1">
@@ -42,31 +38,7 @@ export default function RecentExpenses() {
 						)}
 					/>
 
-					{/* Top fade */}
-					<LinearGradient
-						colors={[cardBg, "transparent"]}
-						style={{
-							position: "absolute",
-							top: 0,
-							left: 0,
-							right: 0,
-							height: 16,
-							zIndex: 10,
-						}}
-					/>
-
-					{/* Bottom fade */}
-					<LinearGradient
-						colors={["transparent", cardBg]}
-						style={{
-							position: "absolute",
-							bottom: 0,
-							left: 0,
-							right: 0,
-							height: 16,
-							zIndex: 10,
-						}}
-					/>
+					<LinearGradients />
 				</Box>
 			</VStack>
 		</Card>

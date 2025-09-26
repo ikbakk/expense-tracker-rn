@@ -6,9 +6,7 @@ import {
 	ReceiptText,
 	Settings,
 } from "lucide-react-native";
-import { Icon } from "@/components/ui";
-import { useClientOnlyValue } from "@/components/useClientOnlyValue";
-
+import { Box, Icon } from "@/components/ui";
 const tabs = [
 	{
 		name: "home/index",
@@ -40,19 +38,43 @@ const tabs = [
 export default function TabLayout() {
 	return (
 		<Tabs
-			screenOptions={{
-				headerShown: useClientOnlyValue(false, false),
+			screenOptions={({ route }) => {
+				const tab = tabs.find((t) => route.name.includes(t.name));
+				if (!tab) return {};
+
+				return {
+					headerShown: false,
+					tabBarStyle: {
+						elevation: 0,
+						borderTopWidth: 0,
+						shadowOpacity: 0,
+						bottom: 12,
+						marginTop: 18,
+						backgroundColor: "transparent",
+					},
+					tabBarIcon: ({ color }) => {
+						// Bigger middle/focused tab
+						if (tab.name === "scan/index") {
+							return (
+								<Box className="p-5 bg-primary-500 rounded-full">
+									<Icon as={tab.icon} size={32} color="white" />
+								</Box>
+							);
+						}
+
+						// Default icon
+						return <Icon as={tab.icon} size={24} color={color} />;
+					},
+
+					tabBarLabel: tab.name === "scan/index" ? () => null : tab.title,
+				};
 			}}
 		>
 			{tabs.map((tab) => (
 				<Tabs.Screen
 					key={tab.name}
 					name={tab.name}
-					options={{
-						title: tab.title,
-						popToTopOnBlur: true,
-						tabBarIcon: ({ color }) => <Icon as={tab.icon} color={color} />,
-					}}
+					options={{ title: tab.title }}
 				/>
 			))}
 		</Tabs>

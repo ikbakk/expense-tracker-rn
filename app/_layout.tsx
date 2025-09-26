@@ -1,22 +1,14 @@
 import { GluestackUIProvider } from "@/components/ui/gluestack-ui-provider";
 import "@/global.css";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
-import {
-	DarkTheme,
-	DefaultTheme,
-	ThemeProvider,
-} from "@react-navigation/native";
 import { useFonts } from "expo-font";
+import { Slot, Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect, useState } from "react";
-import { Stack, usePathname } from "expo-router";
 import { Fab, FabIcon } from "@/components/ui/fab";
 import { MoonIcon, SunIcon } from "@/components/ui/icon";
 
-export {
-	// Catch any errors thrown by the Layout component.
-	ErrorBoundary,
-} from "expo-router";
+export { ErrorBoundary } from "expo-router";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -26,8 +18,8 @@ export default function RootLayout() {
 		...FontAwesome.font,
 	});
 
-	const [styleLoaded, setStyleLoaded] = useState(false);
-	// Expo Router uses Error Boundaries to catch errors in the navigation tree.
+	const [colorMode, setColorMode] = useState<"light" | "dark">("light");
+
 	useEffect(() => {
 		if (error) throw error;
 	}, [error]);
@@ -37,31 +29,30 @@ export default function RootLayout() {
 			SplashScreen.hideAsync();
 		}
 	}, [loaded]);
-	return <RootLayoutNav />;
-}
-
-function RootLayoutNav() {
-	const pathname = usePathname();
-	const [colorMode, setColorMode] = useState<"light" | "dark">("light");
 
 	return (
 		<GluestackUIProvider mode={colorMode}>
-			<ThemeProvider value={colorMode === "dark" ? DarkTheme : DefaultTheme}>
-				<Stack screenOptions={{ headerShown: false }}>
-					<Stack.Screen name="/home" />
-				</Stack>
-				{pathname !== "/" && (
-					<Fab
-						onPress={() =>
-							setColorMode(colorMode === "dark" ? "light" : "dark")
-						}
-						className="m-6"
-						size="lg"
-					>
-						<FabIcon as={colorMode === "dark" ? MoonIcon : SunIcon} />
-					</Fab>
-				)}
-			</ThemeProvider>
+			<Stack>
+				<Stack.Screen
+					name="(tabs)"
+					options={{
+						headerShown: false,
+						contentStyle: {
+							backgroundColor:
+								colorMode === "light"
+									? "rgb(255, 255, 255)"
+									: "rgb(21, 16, 16)",
+						},
+					}}
+				/>
+			</Stack>
+			{/* <Fab */}
+			{/* 	onPress={() => setColorMode(colorMode === "dark" ? "light" : "dark")} */}
+			{/* 	className="m-6" */}
+			{/* 	size="lg" */}
+			{/* > */}
+			{/* 	<FabIcon as={colorMode === "dark" ? MoonIcon : SunIcon} /> */}
+			{/* </Fab> */}
 		</GluestackUIProvider>
 	);
 }
