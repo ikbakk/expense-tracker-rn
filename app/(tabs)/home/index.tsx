@@ -5,6 +5,7 @@ import RecentExpenses from "@/components/RecentExpenses";
 import ScreenHeader from "@/components/ScreenHeader";
 import SummaryCard from "@/components/SummaryCard";
 import { Grid, GridItem } from "@/components/ui";
+import { dummyExpenses } from "@/lib/dummyExpenses";
 
 export default function Home() {
 	return (
@@ -38,7 +39,7 @@ export default function Home() {
 
 			<MonthlyBudget />
 			<OverviewScanner />
-			<RecentExpenses />
+			<RecentExpenses data={[]} />
 		</AppView>
 	);
 }
