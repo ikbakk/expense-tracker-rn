@@ -2,17 +2,19 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
 import {
 	BarChart3,
+	Box,
 	Camera,
 	Home,
 	ReceiptText,
 	Settings,
+	Text,
 } from "lucide-react-native";
-import { Box, Icon, Text } from "@/components/ui";
-import ExpensesScreen from "@/screens/expenses";
-import HomeScreen from "@/screens/home";
-import ReportsScreen from "@/screens/reports";
-import ScanScreen from "@/screens/scan";
-import SettingsScreen from "@/screens/settings";
+import { Icon } from "@/components/ui";
+import ExpensesScreen from "@/screens/main/Expenses";
+import HomeScreen from "@/screens/main/Home";
+import ReportsScreen from "@/screens/main/Reports";
+import ScanScreen from "@/screens/main/Scan";
+import SettingsScreen from "@/screens/main/Settings";
 
 const Tab = createBottomTabNavigator();
 
@@ -79,7 +81,7 @@ export default function BottomTabs() {
 							tab.name === "Scan"
 								? () => null
 								: ({ color }) => (
-										<Text className="text-xs" style={{ color }}>
+										<Text className="text-xs" style={{}}>
 											{tab.name}
 										</Text>
 									),

@@ -7,7 +7,7 @@ import MonthlyBudget from "./MonthlyBudget";
 import OverviewScanner from "./OverviewScanner";
 import RecentExpenses from "./RecentExpenses";
 
-export default function Home() {
+export default function HomeScreen() {
 	return (
 		<AppView>
 			<ScreenHeader

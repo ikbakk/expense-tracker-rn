@@ -13,7 +13,7 @@ import {
 	VStack,
 } from "@/components/ui";
 
-export default function Scan() {
+export default function ScanScreen() {
 	const [image, setImage] = useState<string | null>(null);
 	const [result, setResult] = useState("");
 	const [isProcessing, setIsProcessing] = useState(false);

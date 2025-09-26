@@ -1,6 +1,5 @@
 // components/index.tsx
 export * from "./accordion";
-export * from "./actionsheet";
 export * from "./alert";
 export * from "./alert-dialog";
 export * from "./avatar";

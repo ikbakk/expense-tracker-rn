@@ -1,5 +1,5 @@
 import { Frown } from "lucide-react-native";
-import { Center, Icon, Text } from "./ui";
+import { Center, Icon, Text } from "@/components/ui";
 
 export default function NoExpensesView() {
 	return (

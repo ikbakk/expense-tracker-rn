@@ -2,7 +2,7 @@ import AppScrollableView from "@/components/common/AppScrollableView";
 import ScreenHeader from "@/components/common/ScreenHeader";
 import { Box } from "@/components/ui";
 
-export default function Reports() {
+export default function ReportsScreen() {
 	return (
 		<AppScrollableView>
 			<Box>

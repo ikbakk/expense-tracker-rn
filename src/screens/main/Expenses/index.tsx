@@ -19,7 +19,7 @@ import { dummyExpenses } from "@/lib/dummyExpenses";
 import { formattedCurrency } from "@/lib/utils";
 import NoExpensesView from "./NoExpensesView";
 
-export default function Expenses() {
+export default function ExpensesScreen() {
 	const data = dummyExpenses;
 
 	return (
