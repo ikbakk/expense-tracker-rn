@@ -9,7 +9,7 @@ import { dummyExpenses } from "@/lib/dummyExpenses";
 
 export default function Home() {
 	return (
-		<AppView className="gap-4">
+		<AppView>
 			<ScreenHeader
 				title="Overview"
 				subtitle="Your week at a glance"

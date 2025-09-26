@@ -13,6 +13,7 @@ import {
 	VStack,
 } from "./ui";
 import LinearGradients from "./ui/LinearGradients";
+import NoExpensesView from "./NoExpensesView";
 
 //  TODO: change type any[]
 
@@ -37,19 +38,10 @@ export default function RecentExpenses({ data }: Props) {
 				{data && data.length > 1 ? (
 					<RecentExpensesExisted data={data} />
 				) : (
-					<NoRecentExpenses />
+					<NoExpensesView />
 				)}
 			</VStack>
 		</Card>
-	);
-}
-
-function NoRecentExpenses() {
-	return (
-		<Center className="flex-1">
-			<Icon as={Frown} size={32} className="text-typography-500" />
-			<Text>No recent expenses yet</Text>
-		</Center>
 	);
 }
 

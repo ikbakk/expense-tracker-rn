@@ -17,7 +17,7 @@ export default function AppView({
 	return (
 		<SafeAreaView className={cn("flex-1 bg-background-0", safeAreClassName)}>
 			<Box
-				className={cn("flex-1 px-4 pb-4 bg-background-0", className)}
+				className={cn("flex-1 px-4 pb-4 bg-background-0 gap-4", className)}
 				style={{
 					paddingTop: rem(2.5),
 				}}
