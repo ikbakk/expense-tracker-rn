@@ -14,7 +14,7 @@ export default function ScreenHeader({
   subtitle,
 }: ScreenHeaderProps) {
   return (
-    <XStack justifyContent="space-between" alignItems="center">
+    <XStack>
       <YStack className="w-fit">
         <H3>{title}</H3>
         <SizableText size="$4">{subtitle}</SizableText>

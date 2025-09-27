@@ -1,24 +1,33 @@
-import '../global.css';
-import { defaultConfig } from '@tamagui/config/v4'; // for quick config install this
 import { StatusBar } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { createTamagui, TamaguiProvider } from 'tamagui';
+import { TamaguiProvider } from 'tamagui';
+import appConfig from '../tamagui.config';
 import { AuthProvider } from './contexts/AuthContext';
+import { ThemeProvider, useTheme } from './contexts/ThemeProvider';
 import AppNavigator from './navigation/AppNavigator';
 
-const config = createTamagui(defaultConfig);
+function AppContent() {
+  const { theme } = useTheme();
 
-function App() {
+  // Set StatusBar style based on theme
+  const barStyle = theme === 'dark' ? 'dark-content' : 'light-content';
+
   return (
-    <TamaguiProvider config={config}>
-      <AuthProvider>
-        <SafeAreaView style={{ flex: 1 }}>
-          <StatusBar barStyle="dark-content" />
-          <AppNavigator />
-        </SafeAreaView>
-      </AuthProvider>
-    </TamaguiProvider>
+    <SafeAreaView style={{ flex: 1, backgroundColor: 'transparent' }}>
+      <StatusBar barStyle={barStyle} />
+      <AppNavigator />
+    </SafeAreaView>
   );
 }
 
-export default App;
+export default function App() {
+  return (
+    <TamaguiProvider config={appConfig}>
+      <ThemeProvider>
+        <AuthProvider>
+          <AppContent />
+        </AuthProvider>
+      </ThemeProvider>
+    </TamaguiProvider>
+  );
+}
