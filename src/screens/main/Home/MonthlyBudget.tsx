@@ -1,4 +1,10 @@
-import { Card, HStack, Progress, ProgressFilledTrack, Text } from "./ui";
+import {
+	Card,
+	HStack,
+	Progress,
+	ProgressFilledTrack,
+	Text,
+} from "@/components/ui";
 
 export default function MonthlyBudget() {
 	return (

@@ -1,35 +1,27 @@
-import { cn } from "@/lib/utils";
-import { Card, Heading, Text } from "./ui";
+import { cn } from '@/lib/utils';
+import { Card, H2, H4, H5, Text } from 'tamagui';
 
 interface Props {
-	smallText: string;
-	smallTextClassName?: string;
-	biggerText: string;
-	biggerTextClassName?: string;
-	className?: string;
-	variant?: "outline" | "elevated" | "ghost" | "filled";
+  smallText: string;
+  biggerText: string;
+  biggerTextClassName?: string;
+  className?: string;
 }
 
 export default function SummaryCard({
-	smallText,
-	smallTextClassName,
-	biggerText,
-	biggerTextClassName,
-	className,
-	variant = "filled",
+  smallText,
+  biggerText,
+  biggerTextClassName,
+  className,
 }: Props) {
-	return (
-		<Card
-			size={"lg"}
-			variant={variant}
-			className={cn("justify-center gap-3", className)}
-		>
-			<Text size={"md"} className={smallTextClassName}>
-				{smallText}
-			</Text>
-			<Heading size={"2xl"} className={biggerTextClassName}>
-				{biggerText}
-			</Heading>
-		</Card>
-	);
+  return (
+    <Card size="$4" bordered padded theme={'alt2'}>
+      <Card.Header>
+        <Text>{smallText}</Text>
+      </Card.Header>
+      <H4 className={biggerTextClassName}>{biggerText}</H4>
+
+      <Card.Background />
+    </Card>
+  );
 }

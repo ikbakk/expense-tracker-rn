@@ -1,15 +1,17 @@
 module.exports = {
-	presets: ["module:metro-react-native-babel-preset", "nativewind/babel"],
+  presets: ["module:@react-native/babel-preset", "nativewind/babel"],
 	plugins: [
-		// [
-		// 	"module-resolver",
-		// 	{
-		// 		root: ["./"],
-		// 		alias: {
-		// 			"@": "./src",
-		// 		},
-		// 	},
-		// ],
+		[
+			"module-resolver",
+			{
+				root: ["./"],
+				alias: {
+					"@": "./src",
+					"tailwind.config": "./tailwind.config.js",
+				},
+			},
+		],
 		["@babel/plugin-proposal-decorators", { legacy: true }],
+		["react-native-reanimated/plugin"],
 	],
 };

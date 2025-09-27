@@ -11,9 +11,9 @@ import {
 	Icon,
 	Text,
 	VStack,
-} from "./ui";
-import LinearGradients from "./ui/LinearGradients";
-import NoExpensesView from "./NoExpensesView";
+} from "@/components/ui";
+import LinearGradients from "@/components/ui/LinearGradients";
+import NoExpensesView from "@/screens/main/Expenses/NoExpensesView";
 
 //  TODO: change type any[]
 

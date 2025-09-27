@@ -1,13 +1,10 @@
-import AppScrollableView from "@/components/common/AppScrollableView";
-import ScreenHeader from "@/components/common/ScreenHeader";
-import { Box } from "@/components/ui";
+import AppView from '@/components/common/AppView';
+import ScreenHeader from '@/components/common/ScreenHeader';
 
 export default function SettingsScreen() {
-	return (
-		<AppScrollableView>
-			<Box>
-				<ScreenHeader title="Settings" subtitle="Profile and appearance" />
-			</Box>
-		</AppScrollableView>
-	);
+  return (
+    <AppView>
+      <ScreenHeader title="Settings" subtitle="Profile and appearance" />
+    </AppView>
+  );
 }

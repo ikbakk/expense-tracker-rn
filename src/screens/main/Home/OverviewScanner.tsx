@@ -1,4 +1,11 @@
-import { Button, ButtonText, Card, HStack, Text, VStack } from "./ui";
+import {
+	Button,
+	ButtonText,
+	Card,
+	HStack,
+	Text,
+	VStack,
+} from "@/components/ui";
 
 export default function OverviewScanner() {
 	return (

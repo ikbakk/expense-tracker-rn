@@ -1,31 +1,29 @@
-import { Box, Button, ButtonText, HStack, Text } from "../ui";
+import { Button, H3, SizableText, XStack, YStack } from 'tamagui';
 
 interface ScreenHeaderProps {
-	title: string;
-	subtitle?: string;
-	showButton?: boolean;
-	buttonText?: string;
+  title: string;
+  subtitle?: string;
+  showButton?: boolean;
+  buttonText?: string;
 }
 
 export default function ScreenHeader({
-	title,
-	buttonText,
-	showButton,
-	subtitle,
+  title,
+  buttonText,
+  showButton,
+  subtitle,
 }: ScreenHeaderProps) {
-	return (
-		<HStack space={"lg"} className="items-center justify-between p-1">
-			<Box className="w-fit">
-				<Text className="text-2xl font-bold text-typography-900">{title}</Text>
-				<Text className="text-typography-500">{subtitle}</Text>
-			</Box>
-			{showButton && (
-				<Box className="">
-					<Button size={"md"} className="rounded-lg ">
-						<ButtonText>{buttonText}</ButtonText>
-					</Button>
-				</Box>
-			)}
-		</HStack>
-	);
+  return (
+    <XStack justifyContent="space-between" alignItems="center">
+      <YStack className="w-fit">
+        <H3>{title}</H3>
+        <SizableText size="$4">{subtitle}</SizableText>
+      </YStack>
+      {showButton && (
+        <YStack className="">
+          <Button size="$4">{buttonText}</Button>
+        </YStack>
+      )}
+    </XStack>
+  );
 }

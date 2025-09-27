@@ -1,23 +1,24 @@
-import { StatusBar, useColorScheme } from "react-native";
-import { SafeAreaProvider } from "react-native-safe-area-context";
-import "./global.css";
-import { GluestackUIProvider } from "./components/ui";
-import { AuthProvider } from "./contexts/AuthContext";
-import BottomTabs from "./navigation/BottomTabNavigator";
+import '../global.css';
+import { defaultConfig } from '@tamagui/config/v4'; // for quick config install this
+import { StatusBar } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { createTamagui, TamaguiProvider } from 'tamagui';
+import { AuthProvider } from './contexts/AuthContext';
+import AppNavigator from './navigation/AppNavigator';
+
+const config = createTamagui(defaultConfig);
 
 function App() {
-	const isDarkMode = useColorScheme() === "dark";
-
-	return (
-		<GluestackUIProvider>
-			<AuthProvider>
-				<SafeAreaProvider>
-					<StatusBar barStyle={isDarkMode ? "light-content" : "dark-content"} />
-					<BottomTabs />
-				</SafeAreaProvider>
-			</AuthProvider>
-		</GluestackUIProvider>
-	);
+  return (
+    <TamaguiProvider config={config}>
+      <AuthProvider>
+        <SafeAreaView style={{ flex: 1 }}>
+          <StatusBar barStyle="dark-content" />
+          <AppNavigator />
+        </SafeAreaView>
+      </AuthProvider>
+    </TamaguiProvider>
+  );
 }
 
 export default App;

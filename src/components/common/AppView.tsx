@@ -1,30 +1,19 @@
-import { SafeAreaView } from "react-native-safe-area-context";
-import { cn, rem } from "@/lib/utils";
-import { Box } from "../ui";
+import { YStack } from 'tamagui';
 
 interface Props {
-	children: React.ReactNode;
-	className?: string;
-	safeAreClassName?: string;
+  children: React.ReactNode;
 }
 
-export default function AppView({
-	children,
-	className,
-	safeAreClassName,
-	...props
-}: Props) {
-	return (
-		<SafeAreaView className={cn("flex-1 bg-background-0", safeAreClassName)}>
-			<Box
-				className={cn("flex-1 px-4 pb-4 bg-background-0 gap-4", className)}
-				style={{
-					paddingTop: rem(2.5),
-				}}
-				{...props}
-			>
-				{children}
-			</Box>
-		</SafeAreaView>
-	);
+export default function AppView({ children }: Props) {
+  return (
+    <YStack
+      flex={1}
+      paddingHorizontal="$4"
+      paddingBottom="$4"
+      paddingTop="$8"
+      gap="$4"
+    >
+      {children}
+    </YStack>
+  );
 }
