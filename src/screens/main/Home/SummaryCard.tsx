@@ -1,27 +1,25 @@
-import { cn } from '@/lib/utils';
-import { Card, H2, H4, H5, Text } from 'tamagui';
+import { Card, H4, SizableText } from 'tamagui';
 
 interface Props {
   smallText: string;
   biggerText: string;
-  biggerTextClassName?: string;
-  className?: string;
+  inverse?: boolean;
+  backgroundColor?: string;
 }
 
-export default function SummaryCard({
-  smallText,
-  biggerText,
-  biggerTextClassName,
-  className,
-}: Props) {
+export default function SummaryCard({ smallText, biggerText, inverse }: Props) {
   return (
-    <Card size="$4" bordered padded theme={'alt2'}>
-      <Card.Header>
-        <Text>{smallText}</Text>
-      </Card.Header>
-      <H4 className={biggerTextClassName}>{biggerText}</H4>
-
-      <Card.Background />
+    <Card
+      size="$4"
+      flex={1}
+      justify={'center'}
+      items={'center'}
+      bordered
+      padded
+      borderColor={'$accent5'}
+    >
+      <SizableText size={'$2'}>{smallText}</SizableText>
+      <H4>{biggerText}</H4>
     </Card>
   );
 }

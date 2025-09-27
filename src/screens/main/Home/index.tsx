@@ -1,15 +1,16 @@
 import AppView from '@/components/common/AppView';
 import ScreenHeader from '@/components/common/ScreenHeader';
-import { Grid, GridItem } from '@/components/ui';
 import { dummyExpenses } from '@/lib/dummyExpenses';
 import SummaryCard from './SummaryCard';
 import MonthlyBudget from './MonthlyBudget';
 import OverviewScanner from './OverviewScanner';
 import RecentExpenses from './RecentExpenses';
 import { XStack } from 'tamagui';
+import { useTheme } from '@/contexts/ThemeProvider';
 
 export default function HomeScreen() {
-  console.log('i am home');
+  const { theme } = useTheme();
+
   return (
     <AppView>
       <ScreenHeader
@@ -19,20 +20,14 @@ export default function HomeScreen() {
         buttonText="Add Expense"
       />
 
-      <XStack justifyContent="space-between">
-        <SummaryCard smallText="This Week" biggerText="$100.00" />
-        <SummaryCard
-          smallText="Budget Left"
-          smallTextClassName="text-typography-0"
-          biggerText="$100.00"
-          biggerTextClassName="text-typography-0"
-          className="bg-primary-500"
-        />
+      <XStack justify="space-between" gap={'$4'}>
+        <SummaryCard smallText="This Week " biggerText="$100.00" />
+        <SummaryCard smallText="Budget Left" biggerText="$100.00" />
       </XStack>
-      {/**/}
-      {/* <MonthlyBudget /> */}
-      {/* <OverviewScanner /> */}
-      {/* <RecentExpenses data={[]} /> */}
+
+      <MonthlyBudget />
+      <OverviewScanner />
+      <RecentExpenses data={dummyExpenses} />
     </AppView>
   );
 }

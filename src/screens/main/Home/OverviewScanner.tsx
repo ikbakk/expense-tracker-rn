@@ -1,26 +1,21 @@
-import {
-	Button,
-	ButtonText,
-	Card,
-	HStack,
-	Text,
-	VStack,
-} from "@/components/ui";
+import { Button, Card, SizableText, Text, XStack, YStack } from 'tamagui';
 
 export default function OverviewScanner() {
-	return (
-		<Card variant="outline" size="lg">
-			<HStack className="justify-between items-center">
-				<VStack space="xs" className="gap-2">
-					<Text>Scan your next receipt</Text>
-					<Text size="sm" className="text-typography-500">
-						Fast OCR to auto-fill
-					</Text>
-				</VStack>
-				<Button className="rounded-md">
-					<ButtonText>Open Scanner</ButtonText>
-				</Button>
-			</HStack>
-		</Card>
-	);
+  return (
+    <Card
+      size={'$4'}
+      padded
+      bordered
+      borderColor={'$outlineColor'}
+      backgroundColor={'$background0'}
+    >
+      <XStack justify={'space-between'} items={'center'}>
+        <YStack gap={'$2'}>
+          <Text>Scan your next receipt</Text>
+          <SizableText size={'$2'}>Fast OCR to auto-fill</SizableText>
+        </YStack>
+        <Button>Open Scanner</Button>
+      </XStack>
+    </Card>
+  );
 }

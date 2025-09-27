@@ -1,7 +1,7 @@
 import { createContext, type ReactNode, useContext, useState } from 'react';
 import { Theme } from 'tamagui';
 
-type ThemeName = 'light' | 'dark';
+type ThemeName = 'light_teal' | 'dark_teal';
 
 interface ThemeContextType {
   theme: ThemeName;
@@ -11,10 +11,10 @@ interface ThemeContextType {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export const ThemeProvider = ({ children }: { children: ReactNode }) => {
-  const [theme, setTheme] = useState<ThemeName>('light');
+  const [theme, setTheme] = useState<ThemeName>('light_teal');
 
   const toggleTheme = () => {
-    setTheme(theme === 'light' ? 'dark' : 'light');
+    setTheme(theme === 'light_teal' ? 'dark_teal' : 'light_teal');
   };
 
   return (
