@@ -1,93 +1,100 @@
+import {
+  type ImagePickerOptions,
+  type ImagePickerResult,
+  launchCameraAsync,
+  launchImageLibraryAsync,
+  requestCameraPermissionsAsync,
+  requestMediaLibraryPermissionsAsync,
+} from 'expo-image-picker';
 import { useState } from 'react';
+import { Image, ScrollView, Text, View, XStack, YStack } from 'tamagui';
 import AppView from '@/components/common/AppView';
 import ScreenHeader from '@/components/common/ScreenHeader';
-import {
-  requestMediaLibraryPermissionsAsync,
-  launchImageLibraryAsync,
-  launchCameraAsync,
-  requestCameraPermissionsAsync,
-} from 'expo-image-picker';
 import { CustomButton, CustomCard } from '@/components/ui';
-import { Image, Text, View, XStack, YStack } from 'tamagui';
-import MlkitOcr from 'react-native-mlkit-ocr';
+import { useAppToast } from '@/contexts/ToastProvider';
+import { getReceiptAsTable, parseReceipt } from '@/lib/ocrParser';
+
+const imagePickerOptions: ImagePickerOptions = {
+  mediaTypes: ['images'],
+  allowsEditing: true,
+  aspect: [3, 4],
+  quality: 1,
+};
+
+const requestPermission = async (type: 'camera' | 'imagePicker') => {
+  if (type === 'imagePicker') {
+    const { status } = await requestMediaLibraryPermissionsAsync();
+    if (status !== 'granted') {
+      console.log('Sorry, we need camera roll permissions to make this work!');
+      return;
+    }
+  }
+
+  if (type === 'camera') {
+    const { status } = await requestCameraPermissionsAsync();
+    if (status !== 'granted') {
+      console.log('Sorry, we need camera permissions to make this work!');
+      return;
+    }
+  }
+};
 
 export default function ScanScreen() {
   const [image, setImage] = useState<string | null>(null);
   const [result, setResult] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
+  const toast = useAppToast();
 
-  // Helper function to run OCR
-  const runOCR = async (uri: string) => {
-    try {
-      setIsProcessing(true);
-      const detectedText = await MlkitOcr.detectFromUri(uri);
+  const processImage = async (result: ImagePickerResult) => {
+    setIsProcessing(true);
 
-      // MlkitOcr returns an array of blocks
-      // Flatten it into a single string
-      const text = detectedText
-        .map(block => block.text)
-        .join('\n')
-        .trim();
+    if (!result.canceled) {
+      const uri = result.assets[0].uri;
+      const dataOcr = await parseReceipt(uri);
+      const table = getReceiptAsTable(dataOcr);
 
-      setResult(text || 'No text detected');
-    } catch (err) {
-      console.error('OCR error:', err);
-      setResult('Failed to detect text');
-    } finally {
+      setImage(uri);
+
+      if (table.rows.length > 1) {
+        setResult(table.rows.toString());
+
+        toast.show('Receipt Detected', {
+          duration: 3000,
+        });
+      } else {
+        setResult('');
+        toast.show('Please provide a receipt image', { duration: 5000 });
+      }
+
       setIsProcessing(false);
     }
+
+    setIsProcessing(false);
   };
 
   const pickImage = async () => {
     try {
-      // Request permissions
-      const { status } = await requestMediaLibraryPermissionsAsync();
-      if (status !== 'granted') {
-        console.log(
-          'Sorry, we need camera roll permissions to make this work!',
-        );
-        return;
-      }
+      requestPermission('imagePicker');
 
-      const result = await launchImageLibraryAsync({
-        mediaTypes: ['images'],
-        allowsEditing: true,
-        quality: 1,
-      });
+      const result = await launchImageLibraryAsync(imagePickerOptions);
 
-      if (!result.canceled) {
-        const uri = result.assets[0].uri;
-        setImage(uri);
-        await runOCR(uri);
-      }
+      processImage(result);
     } catch (error) {
-      console.error('Image picker error:', error);
+      toast.show('Something went wrong');
+      console.log(error);
     }
   };
 
   const openCamera = async () => {
     try {
-      // Request permissions
-      const { status } = await requestCameraPermissionsAsync();
-      if (status !== 'granted') {
-        console.log('Sorry, we need camera permissions to make this work!');
-        return;
-      }
+      requestPermission('camera');
 
-      const result = await launchCameraAsync({
-        mediaTypes: ['images'],
-        allowsEditing: true,
-        aspect: [4, 3],
-        quality: 1,
-      });
+      const result = await launchCameraAsync(imagePickerOptions);
 
-      if (!result.canceled) {
-        const uri = result.assets[0].uri;
-        setImage(uri);
-        await runOCR(uri);
-      }
+      processImage(result);
     } catch (error) {
-      console.error('Camera error:', error);
+      console.log(error);
+      toast.show('Something went wrong');
     }
   };
 
@@ -141,10 +148,11 @@ export default function ScanScreen() {
 
         <YStack gap={'$2'}>
           <Text>Detected fields (preview)</Text>
-          <View
+          <ScrollView
+            contentContainerStyle={{ pb: '$6' }}
             rounded={'$4'}
             p={'$2'}
-            minH={'$10'}
+            height={'$12'}
             borderColor={'$outline'}
             borderWidth={1}
             bg={'$muted'}
@@ -154,7 +162,7 @@ export default function ScanScreen() {
                 ? 'Processing image...'
                 : result || 'No text detected'}
             </Text>
-          </View>
+          </ScrollView>
 
           <CustomButton
             disabled={!result || isProcessing}
