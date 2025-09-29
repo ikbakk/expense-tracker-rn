@@ -1,4 +1,5 @@
-import { Button, H3, SizableText, Switch, XStack, YStack } from 'tamagui';
+import { H3, SizableText, Switch, XStack, YStack } from 'tamagui';
+import { CustomButton } from '../ui';
 import { useTheme } from '@/contexts/ThemeProvider';
 
 interface ScreenHeaderProps {
@@ -14,21 +15,23 @@ export default function ScreenHeader({
   showButton,
   subtitle,
 }: ScreenHeaderProps) {
-  const { toggleTheme, theme } = useTheme();
+  const { theme, toggleTheme } = useTheme();
   return (
     <XStack justify={'space-between'} items={'center'}>
       <YStack className="w-fit">
-        <H3 color={'$color9'}>{title}</H3>
-        <SizableText size="$4">{subtitle}</SizableText>
+        <H3 color={'$primary'}>{title}</H3>
+        <SizableText color={'$mutedForeground'} size="$4">
+          {subtitle}
+        </SizableText>
       </YStack>
       <XStack gap={'$2'} items={'center'}>
         {showButton && (
           <YStack>
-            <Button size="$4">{buttonText}</Button>
+            <CustomButton buttonText={buttonText} />
           </YStack>
         )}
         <Switch
-          size="$2"
+          size="$4"
           checked={theme === 'dark_teal'}
           onCheckedChange={toggleTheme}
         >
