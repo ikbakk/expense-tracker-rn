@@ -42,7 +42,7 @@ export default function BottomTabs() {
                   justify={'center'}
                   items={'center'}
                   style={{
-                    backgroundColor: '#3b82f6', // your primary color
+                    backgroundColor: '#43cdba', // your primary color
                     borderRadius: 30,
                   }}
                 >
@@ -57,7 +57,7 @@ export default function BottomTabs() {
               <CustomIcon
                 name={icon ? icon : 'home'}
                 size={24}
-                color={color || 'black'}
+                color={'#43cdba'}
               />
             );
           },
@@ -69,7 +69,10 @@ export default function BottomTabs() {
           key={tab.name}
           name={tab.name}
           component={tab.component}
-          options={{ tabBarLabel: tab.name === 'Scan' ? () => null : tab.name }}
+          options={{
+            tabBarLabel: tab.name === 'Scan' ? () => null : tab.name,
+            tabBarActiveTintColor: '#43cdba',
+          }}
         />
       ))}
     </Tab.Navigator>

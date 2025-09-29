@@ -1,19 +1,8 @@
-import { Search } from 'lucide-react-native';
+import { FlatList } from 'react-native';
+import { Input, SizableText, View, XStack, YStack } from 'tamagui';
 import AppView from '@/components/common/AppView';
 import ScreenHeader from '@/components/common/ScreenHeader';
-import {
-  Box,
-  Button,
-  ButtonText,
-  FlatList,
-  HStack,
-  Input,
-  InputField,
-  InputIcon,
-  InputSlot,
-  Text,
-  VStack,
-} from '@/components/ui';
+import { CustomButton } from '@/components/ui';
 import LinearGradients from '@/components/ui/LinearGradients';
 import { dummyExpenses } from '@/lib/dummyExpenses';
 import { formattedCurrency } from '@/lib/utils';
@@ -26,23 +15,22 @@ export default function ExpensesScreen() {
     <AppView>
       <ScreenHeader title="Expenses" subtitle="Recent activity" />
 
-      {/* <Box className="justify-between gap-2"> */}
-      {/* 	<Input size={"md"} variant={"outline"}> */}
-      {/* 		<InputSlot style={{ paddingLeft: 12 }}> */}
-      {/* 			<InputIcon as={Search} /> */}
-      {/* 		</InputSlot> */}
-      {/* 		<InputField placeholder="Search item..." /> */}
-      {/* 	</Input> */}
-      {/* 	<Button className="rounded-md"> */}
-      {/* 		<ButtonText>Search</ButtonText> */}
-      {/* 	</Button> */}
-      {/* </Box> */}
-      {/**/}
-      {/* {data && data.length > 1 ? ( */}
-      {/* 	<ExpensesExistView data={data} /> */}
-      {/* ) : ( */}
-      {/* 	<NoExpensesView /> */}
-      {/* )} */}
+      <YStack gap={'$2'} justify={'space-between'}>
+        <Input
+          size={'$4'}
+          placeholder="Search..."
+          bg={'$bg'}
+          placeholderTextColor={'$primary'}
+          borderColor={'$primary'}
+        ></Input>
+        <CustomButton buttonText="Search" />
+      </YStack>
+
+      {data && data.length > 1 ? (
+        <ExpensesExistView data={data} />
+      ) : (
+        <NoExpensesView />
+      )}
     </AppView>
   );
 }
@@ -51,33 +39,43 @@ export default function ExpensesScreen() {
 
 function ExpensesExistView({ data }: { data: any[] }) {
   return (
-    <Box className="relative flex-1">
+    <View flex={1} position="relative">
       <FlatList
         data={data}
         style={{ flex: 1 }}
         keyExtractor={item => item.id.toString()}
         showsVerticalScrollIndicator={false}
-        ItemSeparatorComponent={() => <Box className="h-4" />}
         renderItem={({ item }) => (
-          <Box className="mb-4">
-            <Box className=" border p-6 rounded-lg border-outline-200">
-              <HStack className="items-center justify-between">
-                <VStack>
-                  <Text bold size="xl">
+          <View mt={'$2'}>
+            <YStack
+              rounded={'$4'}
+              p={6}
+              borderBottomWidth={1}
+              borderColor={'$outline'}
+            >
+              <XStack items={'center'} justify={'space-between'}>
+                <YStack>
+                  <SizableText
+                    color={'$foreground'}
+                    size={'$6'}
+                    fontWeight={'700'}
+                  >
                     {item.category}
-                  </Text>
-                  <Text size="sm" className="text-typography-500">
+                  </SizableText>
+                  <SizableText color={'$mutedForeground'} size="$4">
                     {item.description}
-                  </Text>
-                </VStack>
-                <Text size="lg">{formattedCurrency(item.amount_cents)}</Text>
-              </HStack>
-            </Box>
-          </Box>
+                  </SizableText>
+                </YStack>
+                <SizableText color={'$destructive'} size="$6">
+                  - {formattedCurrency(item.amount_cents)}
+                </SizableText>
+              </XStack>
+            </YStack>
+          </View>
         )}
       />
 
       <LinearGradients />
-    </Box>
+    </View>
   );
 }

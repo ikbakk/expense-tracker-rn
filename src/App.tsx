@@ -10,11 +10,11 @@ function AppContent() {
   const { theme } = useTheme();
 
   // Set StatusBar style based on theme
-  const barStyle = theme === 'dark_teal' ? 'light-content' : 'dark-content';
+  const barStyle = theme === 'dark_teal' ? 'dark-content' : 'light-content';
 
   return (
     <SafeAreaProvider>
-      <StatusBar barStyle={barStyle} />
+      <StatusBar barStyle={barStyle} translucent />
       <AppNavigator />
     </SafeAreaProvider>
   );

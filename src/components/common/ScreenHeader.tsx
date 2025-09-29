@@ -32,10 +32,12 @@ export default function ScreenHeader({
         )}
         <Switch
           size="$4"
+          bg={'$primary'}
+          borderColor={'$outline'}
           checked={theme === 'dark_teal'}
           onCheckedChange={toggleTheme}
         >
-          <Switch.Thumb animation={'quicker'} />
+          <Switch.Thumb bg={'$foreground'} animation={'quicker'} />
         </Switch>
       </XStack>
     </XStack>

@@ -1,16 +1,11 @@
-import LinearGradient from 'react-native-linear-gradient';
-import { useTheme } from '@/contexts/ThemeProvider';
+import { LinearGradient } from 'tamagui/linear-gradient';
 
 export default function LinearGradients() {
-  const { theme } = useTheme();
-
-  const cardBg = theme === 'light_teal' ? '#fcfcfc' : '#2a2a2a';
-
   return (
     <>
       {/* Top fade */}
       <LinearGradient
-        colors={[cardBg, 'transparent']}
+        colors={['$bgGradient', 'transparent']}
         style={{
           position: 'absolute',
           top: 0,
@@ -21,9 +16,8 @@ export default function LinearGradients() {
         }}
       />
 
-      {/* Bottom fade */}
       <LinearGradient
-        colors={['transparent', cardBg]}
+        colors={['transparent', '$bgGradient']}
         style={{
           position: 'absolute',
           bottom: 0,

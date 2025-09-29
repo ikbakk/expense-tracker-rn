@@ -44,11 +44,19 @@ function RecentExpensesExisted({ data }: { data: any[] }) {
           <YStack my={2} pb={2}>
             <XStack items={'center'} justify={'space-between'}>
               <YStack>
-                <SizableText size={'$4'}>{item.category}</SizableText>
-                <Text>{item.description}</Text>
+                <SizableText
+                  color={'$foreground'}
+                  fontWeight={'700'}
+                  size={'$4'}
+                >
+                  {item.category}
+                </SizableText>
+                <SizableText color={'$mutedForeground'}>
+                  {item.description}
+                </SizableText>
               </YStack>
-              <SizableText size={'$4'}>
-                {formattedCurrency(item.amount_cents)}
+              <SizableText color={'$destructive'} size={'$4'}>
+                - {formattedCurrency(item.amount_cents)}
               </SizableText>
             </XStack>
           </YStack>
