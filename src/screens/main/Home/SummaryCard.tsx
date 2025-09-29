@@ -1,25 +1,37 @@
-import { Card, H4, SizableText } from 'tamagui';
+import { H4, SizableText } from 'tamagui';
+import { CustomCard } from '@/components/ui';
 
 interface Props {
   smallText: string;
   biggerText: string;
-  inverse?: boolean;
-  backgroundColor?: string;
+  inversed?: boolean;
 }
 
-export default function SummaryCard({ smallText, biggerText, inverse }: Props) {
+export default function SummaryCard({
+  smallText,
+  biggerText,
+  inversed,
+}: Props) {
   return (
-    <Card
-      size="$4"
-      flex={1}
-      justify={'center'}
-      items={'center'}
-      bordered
-      padded
-      borderColor={'$accent5'}
-    >
-      <SizableText size={'$2'}>{smallText}</SizableText>
-      <H4>{biggerText}</H4>
-    </Card>
+    <>
+      {inversed ? (
+        <CustomCard
+          flex={1}
+          bg={'$primary'}
+          justify={'center'}
+          items={'center'}
+        >
+          <SizableText color={'$primaryForeground'} size={'$2'}>
+            {smallText}
+          </SizableText>
+          <H4 color={'$primaryForeground'}>{biggerText}</H4>
+        </CustomCard>
+      ) : (
+        <CustomCard flex={1} justify={'center'} items={'center'}>
+          <SizableText size={'$2'}>{smallText}</SizableText>
+          <H4>{biggerText}</H4>
+        </CustomCard>
+      )}
+    </>
   );
 }

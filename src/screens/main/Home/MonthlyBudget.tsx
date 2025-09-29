@@ -1,18 +1,19 @@
-import { Card, Progress, Text, XStack, YStack } from 'tamagui';
+import { Progress, SizableText, Text, XStack, YStack } from 'tamagui';
+import { CustomCard } from '@/components/ui';
 
 export default function MonthlyBudget() {
   return (
-    <Card size="$4" className="gap-2" padded bordered borderColor={'$accent5'}>
+    <CustomCard>
       <YStack gap={'$2'}>
-        <XStack className="justify-between items-center">
-          <Text>Monthly budget</Text>
-          <Text>60% used</Text>
+        <XStack justify={'space-between'} items={'center'}>
+          <SizableText size={'$2'}>Monthly budget</SizableText>
+          <SizableText size={'$2'}>60% used</SizableText>
         </XStack>
-        <Progress value={60}>
-          <Progress.Indicator animation={'bouncy'} />
+        <Progress bg={'$outline'} value={60}>
+          <Progress.Indicator bg={'$primary'} animation={'bouncy'} />
         </Progress>
         <Text>Budget: 1000 | Spent: 600</Text>
       </YStack>
-    </Card>
+    </CustomCard>
   );
 }

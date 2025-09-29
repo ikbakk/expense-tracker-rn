@@ -1,25 +1,25 @@
-import { Frown } from 'lucide-react-native';
 import { FlatList } from 'react-native';
-import { formattedCurrency } from '@/lib/utils';
-
+import { SizableText, Text, XStack, YStack } from 'tamagui';
+import { CustomButton, CustomCard } from '@/components/ui';
 import LinearGradients from '@/components/ui/LinearGradients';
+import { formattedCurrency } from '@/lib/utils';
 import NoExpensesView from '@/screens/main/Expenses/NoExpensesView';
-import { Button, Card, SizableText, Text, XStack, YStack } from 'tamagui';
 
 //  TODO: change type any[]
-
 interface Props {
   data: any[];
 }
 
 export default function RecentExpenses({ data }: Props) {
   return (
-    <Card size="$4" flex={1} padded bordered>
-      <YStack className="flex-1">
-        <XStack className="items-center justify-between">
+    <CustomCard flex={1}>
+      <YStack flex={1}>
+        <XStack justify={'space-between'} items={'center'}>
           <Text>Recent expenses</Text>
 
-          {data && data.length > 1 && <Button>View all</Button>}
+          {data && data.length > 1 && (
+            <CustomButton size={'$4'} buttonText={'View all'} />
+          )}
         </XStack>
 
         {data && data.length > 1 ? (
@@ -28,13 +28,13 @@ export default function RecentExpenses({ data }: Props) {
           <NoExpensesView />
         )}
       </YStack>
-    </Card>
+    </CustomCard>
   );
 }
 
 function RecentExpensesExisted({ data }: { data: any[] }) {
   return (
-    <YStack flex={1} style={{ position: 'relative', flex: 1 }}>
+    <YStack flex={1} style={{ position: 'relative' }}>
       <FlatList
         data={data}
         style={{ flex: 1 }}

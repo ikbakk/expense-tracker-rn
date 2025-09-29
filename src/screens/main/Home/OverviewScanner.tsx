@@ -1,21 +1,16 @@
-import { Button, Card, SizableText, Text, XStack, YStack } from 'tamagui';
+import { SizableText, Text, XStack, YStack } from 'tamagui';
+import { CustomButton, CustomCard } from '@/components/ui';
 
 export default function OverviewScanner() {
   return (
-    <Card
-      size={'$4'}
-      padded
-      bordered
-      borderColor={'$outlineColor'}
-      backgroundColor={'$background0'}
-    >
+    <CustomCard>
       <XStack justify={'space-between'} items={'center'}>
         <YStack gap={'$2'}>
           <Text>Scan your next receipt</Text>
           <SizableText size={'$2'}>Fast OCR to auto-fill</SizableText>
         </YStack>
-        <Button>Open Scanner</Button>
+        <CustomButton buttonText="Open Scanner" />
       </XStack>
-    </Card>
+    </CustomCard>
   );
 }
