@@ -7,12 +7,14 @@ import {
   requestMediaLibraryPermissionsAsync,
 } from 'expo-image-picker';
 import { useState } from 'react';
-import { Image, ScrollView, Text, View, XStack, YStack } from 'tamagui';
+import { YStack } from 'tamagui';
 import AppView from '@/components/common/AppView';
 import ScreenHeader from '@/components/common/ScreenHeader';
-import { CustomButton, CustomCard } from '@/components/ui';
 import { useAppToast } from '@/contexts/ToastProvider';
 import { getReceiptAsTable, parseReceipt } from '@/lib/ocrParser';
+import ImagePreview from './ImagePreview';
+import OCRResult from './OCRResult';
+import UploadButtons from './UploadButtons';
 
 const imagePickerOptions: ImagePickerOptions = {
   mediaTypes: ['images'],
@@ -104,71 +106,14 @@ export default function ScanScreen() {
         title="Scan Receipt"
         subtitle="Use your camera or upload a photo"
       />
-
-      <CustomCard flex={1} bg={'$muted'}>
-        <View
-          animation={'bouncy'}
-          flex={1}
-          rounded={'$4'}
-          overflow="hidden"
-          borderColor={'$outline'}
-          borderWidth={1}
-        >
-          {image ? (
-            <Image
-              flex={1}
-              source={{ uri: image }}
-              resizeMethod="auto"
-              className="flex-1 w-full"
-              alt="receipt"
-            />
-          ) : (
-            <View justify={'center'} items={'center'} flex={1}>
-              <Text>Camera preview / Receipt image</Text>
-            </View>
-          )}
-        </View>
-      </CustomCard>
-
+      <ImagePreview imageUri={image} />
       <YStack gap={'$4'}>
-        <XStack gap={'$4'}>
-          <CustomButton
-            disabled={isProcessing}
-            flex={1}
-            buttonText={isProcessing ? 'Processing...' : 'Upload Photo'}
-            onPress={pickImage}
-          />
-          <CustomButton
-            disabled={isProcessing}
-            flex={1}
-            buttonText={isProcessing ? 'Processing...' : 'Open Camera'}
-            onPress={openCamera}
-          />
-        </XStack>
-
-        <YStack gap={'$2'}>
-          <Text>Detected fields (preview)</Text>
-          <ScrollView
-            contentContainerStyle={{ pb: '$6' }}
-            rounded={'$4'}
-            p={'$2'}
-            height={'$12'}
-            borderColor={'$outline'}
-            borderWidth={1}
-            bg={'$muted'}
-          >
-            <Text className="text-sm">
-              {isProcessing
-                ? 'Processing image...'
-                : result || 'No text detected'}
-            </Text>
-          </ScrollView>
-
-          <CustomButton
-            disabled={!result || isProcessing}
-            buttonText="Use these details"
-          />
-        </YStack>
+        <UploadButtons
+          isProcessing={isProcessing}
+          openCamera={openCamera}
+          pickImage={pickImage}
+        />
+        <OCRResult result={result} isProcessing={isProcessing} />
       </YStack>
     </AppView>
   );

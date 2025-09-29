@@ -54,11 +54,7 @@ export default function BottomTabs() {
             const icon = tabs.find(t => t.name === route.name)
               ?.icon as IconName;
             return (
-              <CustomIcon
-                name={icon ? icon : 'home'}
-                size={24}
-                color={'#43cdba'}
-              />
+              <CustomIcon name={icon ? icon : 'home'} size={24} color={color} />
             );
           },
         };
