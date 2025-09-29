@@ -1,17 +1,6 @@
 import { useState } from 'react';
 import AppView from '@/components/common/AppView';
 import ScreenHeader from '@/components/common/ScreenHeader';
-import {
-  Box,
-  Button,
-  ButtonText,
-  Card,
-  Center,
-  HStack,
-  Image,
-  Text,
-  VStack,
-} from '@/components/ui';
 
 export default function ScanScreen() {
   const [image, setImage] = useState<string | null>(null);
