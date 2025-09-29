@@ -35,12 +35,12 @@ const darkPalette = [
 
 // Primary (teal from OKLCH)
 const tealLight = [
-  '#e0fdfa',
+  '#fcfcfc',
   '#b5f7f2',
   '#8af0e8',
   '#5fe9df',
   '#35e2d6',
-  '#00a8a4', // main primary
+  '#41bbaa', // main primary
   '#00938f',
   '#007f7b',
   '#006b67',
@@ -50,13 +50,13 @@ const tealLight = [
 ];
 
 const tealDark = [
-  '#002e2b',
+  '#2a2a2a',
   '#00423f',
   '#005653',
   '#006b67',
   '#007f7b',
   '#00938f',
-  '#00a8a4', // main primary
+  '#43cdba', // main primary
   '#35e2d6',
   '#5fe9df',
   '#8af0e8',
@@ -129,12 +129,15 @@ export const tealThemes = createThemes({
         ...lightShadows,
         shadowColor: lightShadows.shadow1,
 
-        primary: '#00a8a4',
-        primaryForeground: '#292929',
-
+        primary: '#41bbaa',
+        primaryForeground: '#0d0d0d',
+        background: '#fcfcfc',
+        foreground: '#141414',
+        outline: '#e4e4e4',
+        muted: '#f5f5f5',
+        mutedForeground: '#808080',
         accent: '#ffb32d',
         accentForeground: '#292929',
-
         destructive: '#d23c2c',
         destructiveForeground: '#ffffff',
       },
@@ -144,13 +147,16 @@ export const tealThemes = createThemes({
         ...Colors.blueDark,
         ...darkShadows,
         shadowColor: darkShadows.shadow1,
-
-        primary: '#00b3ae',
-        primaryForeground: '#292929',
-
+        primary: '#43cdba',
+        primaryForeground: '#0d0d0d',
+        background: '#0d0d0d',
+        foreground: '#f8f8f8',
+        outline: '#242424',
+        primaryBg: '#2a2a2a',
+        muted: '#f5f5f5',
+        mutedForeground: '#b5b5b5',
         accent: '#ff9f1c',
         accentForeground: '#292929',
-
         destructive: '#b92d23',
         destructiveForeground: '#292929',
       },
