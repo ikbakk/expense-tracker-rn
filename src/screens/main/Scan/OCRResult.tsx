@@ -10,7 +10,7 @@ interface Props {
 export default function OCRResult({ isProcessing, result, onPress }: Props) {
   return (
     <YStack gap={'$2'}>
-      <Text color={'$foreground'}>Detected fields (preview)</Text>
+      <Text color={'$foreground'}>Summary</Text>
       <ScrollView
         contentContainerStyle={{ pb: '$6' }}
         rounded={'$4'}

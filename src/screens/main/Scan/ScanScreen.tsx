@@ -12,12 +12,12 @@ import { YStack } from 'tamagui';
 import AppView from '@/components/common/AppView';
 import ScreenHeader from '@/components/common/ScreenHeader';
 import { useAppToast } from '@/contexts/ToastProvider';
-import { getReceiptAsTable, parseReceipt } from '@/lib/ocrParser';
+import { parseReceiptWithAi } from '@/lib/googleGenAi';
+import { parseReceipt } from '@/lib/ocr';
 import ImagePreview from './ImagePreview';
 import type { ScanStackNavigation } from './layout';
 import OCRResult from './OCRResult';
 import UploadButtons from './UploadButtons';
-import { parseReceiptForBackend } from '@/lib/ocrHelper';
 
 const imagePickerOptions: ImagePickerOptions = {
   mediaTypes: ['images'],
@@ -56,12 +56,24 @@ export default function ScanScreen() {
 
     if (!result.canceled) {
       const uri = result.assets[0].uri;
-      const parsedReceipt = await parseReceiptForBackend(uri);
+      const parsedReceipt = await parseReceipt(uri);
 
       setImage(uri);
 
       if (parsedReceipt) {
-        setResult(JSON.stringify(parsedReceipt));
+        const aiResult = await parseReceiptWithAi(parsedReceipt.rawText);
+
+        if (aiResult) {
+          //           const summary = `${aiResult.description}
+          //
+          // Payload:
+          // total: ${aiResult.data.amount_cents}
+          // merchant: ${aiResult.data.merchant}
+          // category: ${aiResult.data.category}
+          // date: ${aiResult.data.date}
+          // `;
+          setResult(aiResult.description);
+        }
 
         toast.show('Receipt Detected', {
           duration: 3000,

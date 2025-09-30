@@ -15,6 +15,7 @@
 		"@gluestack-ui/core": "^3.0.10",
 		"@gluestack-ui/utils": "^3.0.7",
 		"@gluestack/ui-next-adapter": "^3.0.3",
+		"@google/genai": "^1.21.0",
 		"@gorhom/bottom-sheet": "^5.2.6",
 		"@legendapp/motion": "^2.4.0",
 		"@lucide/lab": "^0.1.2",
