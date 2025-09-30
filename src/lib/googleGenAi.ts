@@ -8,7 +8,7 @@ export interface Result {
 
 // The client gets the API key from the environment variable `GEMINI_API_KEY`.
 const ai = new GoogleGenAI({
-  apiKey: 'AIzaSyA7zbTnT87vqKi1o78X5cgC4NOYGzLEpuo',
+  apiKey: '',
 });
 
 export async function parseReceiptWithAi({
