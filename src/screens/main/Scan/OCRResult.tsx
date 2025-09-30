@@ -4,9 +4,10 @@ import { CustomButton } from '@/components/ui';
 interface Props {
   isProcessing: boolean;
   result: string;
+  onPress?: () => void;
 }
 
-export default function OCRResult({ isProcessing, result }: Props) {
+export default function OCRResult({ isProcessing, result, onPress }: Props) {
   return (
     <YStack gap={'$2'}>
       <Text color={'$foreground'}>Detected fields (preview)</Text>
@@ -25,6 +26,7 @@ export default function OCRResult({ isProcessing, result }: Props) {
       </ScrollView>
 
       <CustomButton
+        onPress={onPress}
         disabled={!result || isProcessing}
         buttonText="Use these details"
       />

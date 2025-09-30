@@ -6,8 +6,10 @@ interface Props extends ButtonProps {
 
 export default function CustomButton({ buttonText, ...rest }: Props) {
   return (
-    <Button bg={'$primary'} size="$4" {...rest}>
-      <ButtonText color={'$primaryForeground'}>{buttonText}</ButtonText>
+    <Button bg={rest.disabled ? 'grey' : '$primary'} size="$4" {...rest}>
+      <ButtonText color={rest.disabled ? '$foreground' : '$primaryForeground'}>
+        {buttonText}
+      </ButtonText>
     </Button>
   );
 }

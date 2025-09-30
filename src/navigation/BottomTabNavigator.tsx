@@ -4,7 +4,7 @@ import CustomIcon, { type IconName } from '@/components/ui/CustomIcon';
 import ExpensesScreen from '@/screens/main/Expenses';
 import HomeScreen from '@/screens/main/Home';
 import ReportsScreen from '@/screens/main/Reports';
-import ScanScreen from '@/screens/main/Scan';
+import ScanLayout from '@/screens/main/Scan/layout';
 import SettingsScreen from '@/screens/main/Settings';
 
 const Tab = createBottomTabNavigator();
@@ -12,7 +12,7 @@ const Tab = createBottomTabNavigator();
 const tabs = [
   { name: 'Home', component: HomeScreen, icon: 'home' },
   { name: 'Expenses', component: ExpensesScreen, icon: 'receiptText' },
-  { name: 'Scan', component: ScanScreen, icon: 'camera' },
+  { name: 'Scan', component: ScanLayout, icon: 'camera' },
   { name: 'Reports', component: ReportsScreen, icon: 'barChart3' },
   { name: 'Settings', component: SettingsScreen, icon: 'settings' },
 ];

@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native';
 import {
   type ImagePickerOptions,
   type ImagePickerResult,
@@ -13,8 +14,10 @@ import ScreenHeader from '@/components/common/ScreenHeader';
 import { useAppToast } from '@/contexts/ToastProvider';
 import { getReceiptAsTable, parseReceipt } from '@/lib/ocrParser';
 import ImagePreview from './ImagePreview';
+import type { ScanStackNavigation } from './layout';
 import OCRResult from './OCRResult';
 import UploadButtons from './UploadButtons';
+import { parseReceiptForBackend } from '@/lib/ocrHelper';
 
 const imagePickerOptions: ImagePickerOptions = {
   mediaTypes: ['images'],
@@ -46,19 +49,19 @@ export default function ScanScreen() {
   const [result, setResult] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
   const toast = useAppToast();
+  const { navigate } = useNavigation<ScanStackNavigation>();
 
   const processImage = async (result: ImagePickerResult) => {
     setIsProcessing(true);
 
     if (!result.canceled) {
       const uri = result.assets[0].uri;
-      const dataOcr = await parseReceipt(uri);
-      const table = getReceiptAsTable(dataOcr);
+      const parsedReceipt = await parseReceiptForBackend(uri);
 
       setImage(uri);
 
-      if (table.rows.length > 1) {
-        setResult(table.rows.toString());
+      if (parsedReceipt) {
+        setResult(JSON.stringify(parsedReceipt));
 
         toast.show('Receipt Detected', {
           duration: 3000,
@@ -100,6 +103,10 @@ export default function ScanScreen() {
     }
   };
 
+  const reviewResult = () => {
+    navigate('ScanReview');
+  };
+
   return (
     <AppView>
       <ScreenHeader
@@ -113,7 +120,11 @@ export default function ScanScreen() {
           openCamera={openCamera}
           pickImage={pickImage}
         />
-        <OCRResult result={result} isProcessing={isProcessing} />
+        <OCRResult
+          result={result}
+          isProcessing={isProcessing}
+          onPress={reviewResult}
+        />
       </YStack>
     </AppView>
   );
