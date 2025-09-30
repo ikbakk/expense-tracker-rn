@@ -7,13 +7,13 @@ import {
   requestCameraPermissionsAsync,
   requestMediaLibraryPermissionsAsync,
 } from 'expo-image-picker';
-import { useState } from 'react';
 import { YStack } from 'tamagui';
 import AppView from '@/components/common/AppView';
 import ScreenHeader from '@/components/common/ScreenHeader';
 import { useAppToast } from '@/contexts/ToastProvider';
 import { parseReceiptWithAi } from '@/lib/googleGenAi';
 import { parseReceipt } from '@/lib/ocr';
+import { useScanScreenStore } from '@/stores/screens';
 import ImagePreview from './ImagePreview';
 import type { ScanStackNavigation } from './layout';
 import OCRResult from './OCRResult';
@@ -45,9 +45,16 @@ const requestPermission = async (type: 'camera' | 'imagePicker') => {
 };
 
 export default function ScanScreen() {
-  const [image, setImage] = useState<string | null>(null);
-  const [result, setResult] = useState('');
-  const [isProcessing, setIsProcessing] = useState(false);
+  const {
+    isProcessing,
+    result,
+    image,
+    setImage,
+    setIsProcessing,
+    setPayload,
+    setResult,
+  } = useScanScreenStore();
+
   const toast = useAppToast();
   const { navigate } = useNavigation<ScanStackNavigation>();
 
@@ -61,9 +68,9 @@ export default function ScanScreen() {
       setImage(uri);
 
       if (parsedReceipt) {
-        const aiResult = await parseReceiptWithAi(parsedReceipt.rawText);
+        const aiResult = await parseReceiptWithAi(parsedReceipt);
 
-        if (aiResult) {
+        if (aiResult && aiResult.data !== null) {
           //           const summary = `${aiResult.description}
           //
           // Payload:
@@ -73,6 +80,7 @@ export default function ScanScreen() {
           // date: ${aiResult.data.date}
           // `;
           setResult(aiResult.description);
+          setPayload(aiResult.data);
         }
 
         toast.show('Receipt Detected', {

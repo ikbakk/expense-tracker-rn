@@ -1,11 +1,24 @@
 import { GoogleGenAI } from '@google/genai';
+import type { Payload, ReceiptData } from '@/types/ocr';
+
+export interface Result {
+  data: Payload | null;
+  description: string;
+}
 
 // The client gets the API key from the environment variable `GEMINI_API_KEY`.
 const ai = new GoogleGenAI({
   apiKey: 'AIzaSyA7zbTnT87vqKi1o78X5cgC4NOYGzLEpuo',
 });
 
-export async function parseReceiptWithAi(rawText: string) {
+export async function parseReceiptWithAi({
+  date,
+  currency,
+  items,
+  storeName,
+  subtotal,
+  total,
+}: ReceiptData): Promise<Result> {
   const prompt = `
 You are given the raw OCR text of a shopping receipt.
 
@@ -34,17 +47,24 @@ Rules:
 - Please use indonesian currency when stating a summary even though the database said cents
 `;
 
+  const payload = JSON.stringify({
+    storeName,
+    date,
+    currency,
+    items,
+    subtotal,
+    total,
+  });
+
   const response = await ai.models.generateContent({
     model: 'gemini-2.5-flash-lite', // or gemini-2.0-flash if you want cheaper
-    contents: [{ role: 'user', parts: [{ text: rawText }] }],
+    contents: [{ role: 'user', parts: [{ text: payload }] }],
     config: {
       thinkingConfig: { thinkingBudget: 0 },
       systemInstruction: prompt,
       temperature: 0.2,
     },
   });
-
-  console.log('response', response);
 
   const rawTextResponse = response.text;
   const cleanedText = cleanAiJson(rawTextResponse || '');

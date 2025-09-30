@@ -36,3 +36,11 @@ export interface ReceiptData {
   rawText: string;
   allBlocks: EnhancedOcrBlock[];
 }
+
+export interface Payload {
+  amount_cents: string;
+  category: string;
+  merchant: string;
+  description: string;
+  date: string;
+}

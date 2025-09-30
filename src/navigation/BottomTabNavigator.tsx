@@ -12,7 +12,7 @@ const Tab = createBottomTabNavigator();
 const tabs = [
   { name: 'Home', component: HomeScreen, icon: 'home' },
   { name: 'Expenses', component: ExpensesScreen, icon: 'receiptText' },
-  { name: 'Scan', component: ScanLayout, icon: 'camera' },
+  { name: 'Scan Screens', component: ScanLayout, icon: 'camera' },
   { name: 'Reports', component: ReportsScreen, icon: 'barChart3' },
   { name: 'Settings', component: SettingsScreen, icon: 'settings' },
 ];
@@ -33,8 +33,9 @@ export default function BottomTabs() {
             height: 70,
           },
           tabBarIcon: ({ color }) => {
-            if (route.name === 'Scan') {
-              const icon = tabs.find(t => t.name === 'Scan')?.icon as IconName;
+            if (route.name === 'Scan Screens') {
+              const icon = tabs.find(t => t.name === 'Scan Screens')
+                ?.icon as IconName;
               return (
                 <View
                   width={60}
@@ -66,7 +67,7 @@ export default function BottomTabs() {
           name={tab.name}
           component={tab.component}
           options={{
-            tabBarLabel: tab.name === 'Scan' ? () => null : tab.name,
+            tabBarLabel: tab.name === 'Scan Screens' ? () => null : tab.name,
             tabBarActiveTintColor: '#43cdba',
           }}
         />
